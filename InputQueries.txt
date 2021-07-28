@@ -1,0 +1,3 @@
+select Id,Longitude, Latitude, SchedEndTime, SchedStartTime, Assigned_Service_Resource__c,EarliestStartTime,WorkTypeId ,Simulation_Dataset__c from ServiceAppointment order by Assigned_Service_Resource__c ,SchedStartTime 
+
+select Id,FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s,FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s, Longitude, Latitude,ServiceResourceId,TerritoryType   from ServiceTerritoryMember  
