@@ -1,5 +1,5 @@
 # ServiceAppointment Standard Tasks
-select Id, Longitude, Latitude, EarliestStartTime, Simulation_Dataset__c, WorkTypeId, ServiceTerritoryId, SchedStartTime, SchedEndTime, Assigned_Service_Resource__c from ServiceAppointment order by Assigned_Service_Resource__c ,SchedStartTime 
+select Id, Longitude, Latitude, EarliestStartTime, Simulation_Dataset__c, WorkType.Name, ServiceTerritoryId, SchedStartTime, SchedEndTime, Assigned_Service_Resource__c from ServiceAppointment order by Assigned_Service_Resource__c ,SchedStartTime 
 
 # ServiceAppointment Emergency
 
