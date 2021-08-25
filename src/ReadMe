@@ -1,0 +1,5 @@
+generateTasks - SF apex Code - Create Tasks (normal tasks 90% and emergency tasks 10%) in SF in random location within a defined range,and with a date range to complete all the tasks
+
+generateModel.py - python - Main function that gets Json input "src\input\serviceAppointment.json" and generate a model and returns it in Json format *corrently only print it.
+
+const.py - REST API URLs
