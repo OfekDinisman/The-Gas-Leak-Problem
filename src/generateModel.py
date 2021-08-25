@@ -6,29 +6,22 @@ from getInput import getTasksFromJson
 tasks = getTasksFromJson("src\input\serviceAppointment.json")
 
 df = pd.DataFrame.from_dict(tasks)
-
 X=np.array(df[['lat', 'lng']])
 
-
+# DBSCAN clustering method
 epsilon = 0.0015
-db = DBSCAN(eps=epsilon, min_samples=5) 
-
+db = DBSCAN(eps=epsilon, min_samples=3) 
 
 model=db.fit(np.radians(X))
 cluster_labels = db.labels_
 
-
 num_clusters = len(set(cluster_labels))
-
 
 cluster_labels = cluster_labels.astype(float)
 cluster_labels[cluster_labels == -1] = np.nan
 
-
 labels = pd.DataFrame(db.labels_,columns=['CLUSTER_LABEL'])
-
 dfnew=pd.concat([df,labels],axis=1,sort=False)
-
 
 
 z=[] #HULL simplices coordinates will be appended here
@@ -44,5 +37,4 @@ for i in range (0,num_clusters-1):
 
 
 plt.show()
-
 print(z)
