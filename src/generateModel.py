@@ -3,7 +3,7 @@ from sklearn.cluster import DBSCAN
 from scipy.spatial import ConvexHull
 from getInput import getTasksFromJson
 
-tasks = getTasksFromJson("src\input\serviceAppointment.json")
+tasks = getTasksFromJson("src\input\serviceAppointment2.json")
 
 df = pd.DataFrame.from_dict(tasks)
 X=np.array(df[['lat', 'lng']])
