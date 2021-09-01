@@ -48,3 +48,16 @@ def getTasksFromJson(jsonfile):
 # tasks = getTasksFromJson("src\input\serviceAppointment.json")
 # coordinates = getStandardTaskCoordinates(tasks)
 # print(coordinates)
+
+def getResourceFromJson(jsonfile):
+    file = open(jsonfile,)
+    data = json.load(file)
+    resources = []
+    for d in data:
+        resource = {}
+        resource["stm_id"]          = d["Id"]
+        resource["resource_id"]     = d["ServiceResourceId"]
+        resource["lat"]             = d["FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s"]
+        resource["lng"]             = d["FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s"]
+        resource.append(resource)
+    return resources
