@@ -11,8 +11,13 @@ def getPolygonsFromJson(jsonfile):
         polygon["name"] = d["Name"]        
         kml = d['FSL__KML__c'].encode('utf-8')
         root = parser.fromstring(kml)
-        coordinates = root.Placemark.Polygon.outerBoundaryIs.LinearRing.coordinates
-        polygon["coordinates"] = coordinates
+        coordinates= root.Placemark.Polygon.outerBoundaryIs.LinearRing.coordinates.text
+        coordinates = coordinates.rstrip().replace("\n", ",").split(",")
+        points = []
+        for i in range(0, len(coordinates), 3):
+            x, y, z = float(coordinates[i])*1000000, float(coordinates[i+1])*1000000, float(coordinates[i+2])
+            points.append((x,y))
+        polygon["coordinates"] = points
         polygons.append(polygon)
     return polygons
 
@@ -24,8 +29,8 @@ def getTasksFromJson(jsonfile):
     for d in data:
         task = {}
         task["_id"]                 = d["Id"]
-        task["lat"]                 = d["Longitude"]
-        task["lng"]                 = d["Latitude"]
+        task["lat"]                 = d["Latitude"]
+        task["lng"]                 = d["Longitude"]
         task["startTime"]           = d["EarliestStartTime"]
         task["workType"]            = d["WorkType"]["Name"]
         task["serviceTerritory"]    = d["ServiceTerritoryId"]

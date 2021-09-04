@@ -18,7 +18,7 @@ class ConvexHullManager():
             plt.plot(Y[:, 1],Y[:, 0],  'o')
             z.append(hull.simplices)
             for simplex in hull.simplices:
-                ploted=plt.plot( Y[simplex, 1], Y[simplex, 0],'k-',c='m')
+                plt.plot( Y[simplex, 1], Y[simplex, 0],c='m')
         plt.show()
         print(z)
 

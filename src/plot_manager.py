@@ -19,3 +19,12 @@ class PlotManager():
             xs, xy = poly.exterior.xy
             plt.plot(xs, xy)
         plt.show()
+    
+    def plotPlolygonsAndPoints(self, points, polygons):
+        plt.figure()
+        x, y = points.T
+        plt.scatter(x, y)
+        for poly in polygons:
+            xs, xy = poly.exterior.xy
+            plt.plot(xs, xy)
+        plt.show()

@@ -1,15 +1,19 @@
-import matplotlib.pyplot as plt
+import numpy as np, matplotlib.pyplot as plt
 from scipy.spatial import Voronoi, voronoi_plot_2d
 from shapely.geometry import LineString, MultiLineString, MultiPolygon
-from shapely.ops import polygonize
+from shapely.ops import polygonize, cascaded_union
+import matplotlib.pyplot as plt
+# from geovoronoi.plotting import subplot_for_map, plot_voronoi_polys_with_points_in_area
+from geovoronoi import voronoi_regions_from_coords, points_to_coords
 
 
 class VoronoiManager():
-    def __init__(self, points):
+    def __init__(self, points, boundary):
         self.points = points
         self.vor = Voronoi(self.points)
+        self.boundary = boundary
 
-    def getVorPolygons(self):
+    def getVorPolygons(self, territory):
         vertices = [ x for x in self.vor.ridge_vertices if -1 not in x]
         lines = [LineString(self.vor.vertices[x]) for x in vertices]
         polygons = []
@@ -20,3 +24,21 @@ class VoronoiManager():
     def plotVor(self):
         fig = voronoi_plot_2d(self.vor)
         plt.show()
+
+    # def getVor(self):
+
+    #     gdf_proj = gdf.to_crs(boundary.crs)
+ 
+    #     boundary_shape = cascaded_union(self.boundary.geometry)
+    #     coords = points_to_coords(gdf_proj.geometry)
+
+    #     # Calculate Voronoi Regions
+    #     poly_shapes, pts, poly_to_pt_assignments = voronoi_regions_from_coords(coords, boundary_shape)
+
+
+    def getVor(self):
+        region_polys, region_pts = voronoi_regions_from_coords(self.points, self.boundary)
+        # fig, ax = subplot_for_map()
+        # plot_voronoi_polys_with_points_in_area(ax, self.boundary, region_polys, self.vor, region_pts)
+        # plt.show()
+        return region_polys, region_pts
