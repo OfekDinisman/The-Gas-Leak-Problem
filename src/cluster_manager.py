@@ -1,5 +1,8 @@
 import pandas as pd, numpy as np
 from sklearn.cluster import DBSCAN, KMeans
+from shapely.geometry import Point
+
+from voronoi import VoronoiManager
 
 
 class ClusterManager():
@@ -30,5 +33,25 @@ class ClusterManager():
         # dfnew=pd.concat([self.df,labels],axis=1,sort=False)
         return self.df, centers
 
-    def equal_kmeans(self):
-        pass
+    def kmeans_equal(self, k, boundary):
+        # create k clusters
+        df, clusters = self.kmeans(k)
+        # get centroids
+        vor = VoronoiManager(clusters, boundary)
+        polys, centers = vor.getVor() # TO DO: centers is index
+        # get cluster_size
+        cluster_size = {}
+        for i in range(len(polys)):
+            size = 0
+            for x in self.X:
+                if polys[i].contains(Point(x)):
+                    size += 1
+            cluster_size[i] = size
+        # sort according to cluster size
+        cluster_size = {key: val for key, val in sorted(cluster_size.items(), key=lambda item: item[1], reverse=True)}
+        
+    
+        return self.df, centers
+
+
+        
