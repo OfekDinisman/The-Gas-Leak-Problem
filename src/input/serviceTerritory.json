@@ -1,0 +1,186 @@
+[
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TfTlSAK"
+      },
+      "Id": "0Hh4L000000TfTlSAK",
+      "Name": "Los Angeles"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivPSAS"
+      },
+      "Id": "0Hh4L000000TivPSAS",
+      "Name": "ST03"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivQSAS"
+      },
+      "Id": "0Hh4L000000TivQSAS",
+      "Name": "ST11"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivRSAS"
+      },
+      "Id": "0Hh4L000000TivRSAS",
+      "Name": "ST17"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivVSAS"
+      },
+      "Id": "0Hh4L000000TivVSAS",
+      "Name": "ST06"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivUSAS"
+      },
+      "Id": "0Hh4L000000TivUSAS",
+      "Name": "ST05"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivWSAS"
+      },
+      "Id": "0Hh4L000000TivWSAS",
+      "Name": "ST08"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivXSAS"
+      },
+      "Id": "0Hh4L000000TivXSAS",
+      "Name": "ST12"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivYSAS"
+      },
+      "Id": "0Hh4L000000TivYSAS",
+      "Name": "ST16"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivFSAS"
+      },
+      "Id": "0Hh4L000000TivFSAS",
+      "Name": "ST01"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivGSAS"
+      },
+      "Id": "0Hh4L000000TivGSAS",
+      "Name": "ST04"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivHSAS"
+      },
+      "Id": "0Hh4L000000TivHSAS",
+      "Name": "ST07"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivZSAS"
+      },
+      "Id": "0Hh4L000000TivZSAS",
+      "Name": "ST10"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivaSAC"
+      },
+      "Id": "0Hh4L000000TivaSAC",
+      "Name": "ST13"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivbSAC"
+      },
+      "Id": "0Hh4L000000TivbSAC",
+      "Name": "ST14"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivcSAC"
+      },
+      "Id": "0Hh4L000000TivcSAC",
+      "Name": "ST15"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivKSAS"
+      },
+      "Id": "0Hh4L000000TivKSAS",
+      "Name": "ST02"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivLSAS"
+      },
+      "Id": "0Hh4L000000TivLSAS",
+      "Name": "ST09"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivMSAS"
+      },
+      "Id": "0Hh4L000000TivMSAS",
+      "Name": "ST18"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivNSAS"
+      },
+      "Id": "0Hh4L000000TivNSAS",
+      "Name": "ST19"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TivOSAS"
+      },
+      "Id": "0Hh4L000000TivOSAS",
+      "Name": "ST20"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TfLBSA0"
+      },
+      "Id": "0Hh4L000000TfLBSA0",
+      "Name": "GasLeak1"
+    },
+    {
+      "attributes": {
+        "type": "ServiceTerritory",
+        "url": "/services/data/v51.0/sobjects/ServiceTerritory/0Hh4L000000TfLCSA0"
+      },
+      "Id": "0Hh4L000000TfLCSA0",
+      "Name": "GasLeak2"
+    }
+  ]

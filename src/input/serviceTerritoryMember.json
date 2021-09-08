@@ -1,74 +1,86 @@
 [
-    {
-      "attributes": {
-        "type": "ServiceTerritoryMember",
-        "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TfVpSAK"
-      },
-      "Id": "0Hu4L000000TfVpSAK",
-      "ServiceResourceId": "0Hn4L0000000RVVSA2",
-      "ServiceTerritoryId": "0Hh4L000000TfTlSAK",
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": null,
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": null,
-      "TerritoryType": "P"
+  {
+    "attributes": {
+      "type": "ServiceTerritoryMember",
+      "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TfVpSAK"
     },
-    {
-      "attributes": {
-        "type": "ServiceTerritoryMember",
-        "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TgFeSAK"
-      },
-      "Id": "0Hu4L000000TgFeSAK",
-      "ServiceResourceId": "0Hn4L0000000SLxSAM",
-      "ServiceTerritoryId": "0Hh4L000000TfLBSA0",
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": 29.751943,
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": -95.382513,
-      "TerritoryType": "P"
+    "Id": "0Hu4L000000TfVpSAK",
+    "ServiceResourceId": "0Hn4L0000000RVVSA2",
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": null,
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": null,
+    "ServiceTerritoryId": "0Hh4L000000TfTlSAK",
+    "TerritoryType": "P"
+  },
+  {
+    "attributes": {
+      "type": "ServiceTerritoryMember",
+      "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TgFeSAK"
     },
-    {
-      "attributes": {
-        "type": "ServiceTerritoryMember",
-        "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TgFjSAK"
-      },
-      "Id": "0Hu4L000000TgFjSAK",
-      "ServiceResourceId": "0Hn4L0000000SM2SAM",
-      "ServiceTerritoryId": "0Hh4L000000TfLBSA0",
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": 29.827403,
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": -95.437886,
-      "TerritoryType": "P"
+    "Id": "0Hu4L000000TgFeSAK",
+    "ServiceResourceId": "0Hn4L0000000SLxSAM",
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": -95.382513,
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": 29.751943,
+    "ServiceTerritoryId": "0Hh4L000000TfLBSA0",
+    "TerritoryType": "P"
+  },
+  {
+    "attributes": {
+      "type": "ServiceTerritoryMember",
+      "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TgFjSAK"
     },
-    {
-      "attributes": {
-        "type": "ServiceTerritoryMember",
-        "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TgawSAC"
-      },
-      "Id": "0Hu4L000000TgawSAC",
-      "ServiceResourceId": "0Hn4L0000000RVVSA2",
-      "ServiceTerritoryId": "0Hh4L000000TfLBSA0",
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": 29.755536,
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": -95.481132,
-      "TerritoryType": "P"
+    "Id": "0Hu4L000000TgFjSAK",
+    "ServiceResourceId": "0Hn4L0000000SM2SAM",
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": -95.437886,
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": 29.827403,
+    "ServiceTerritoryId": "0Hh4L000000TfLBSA0",
+    "TerritoryType": "P"
+  },
+  {
+    "attributes": {
+      "type": "ServiceTerritoryMember",
+      "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TgawSAC"
     },
-    {
-      "attributes": {
-        "type": "ServiceTerritoryMember",
-        "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000Tgb1SAC"
-      },
-      "Id": "0Hu4L000000Tgb1SAC",
-      "ServiceResourceId": "0Hn4L0000000SLxSAM",
-      "ServiceTerritoryId": "0Hh4L000000TfLCSA0",
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": null,
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": null,
-      "TerritoryType": "S"
+    "Id": "0Hu4L000000TgawSAC",
+    "ServiceResourceId": "0Hn4L0000000RVVSA2",
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": -95.481132,
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": 29.755536,
+    "ServiceTerritoryId": "0Hh4L000000TfLBSA0",
+    "TerritoryType": "P"
+  },
+  {
+    "attributes": {
+      "type": "ServiceTerritoryMember",
+      "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000Tgb1SAC"
     },
-    {
-      "attributes": {
-        "type": "ServiceTerritoryMember",
-        "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TfNFSA0"
-      },
-      "Id": "0Hu4L000000TfNFSA0",
-      "ServiceResourceId": "0Hn4L0000000RMlSAM",
-      "ServiceTerritoryId": "0Hh4L000000TfLBSA0",
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": 29.771706,
-      "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": -95.457215,
-      "TerritoryType": "P"
-    }
-  ]
+    "Id": "0Hu4L000000Tgb1SAC",
+    "ServiceResourceId": "0Hn4L0000000SLxSAM",
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": null,
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": null,
+    "ServiceTerritoryId": "0Hh4L000000TfLCSA0",
+    "TerritoryType": "S"
+  },
+  {
+    "attributes": {
+      "type": "ServiceTerritoryMember",
+      "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TixdSAC"
+    },
+    "Id": "0Hu4L000000TixdSAC",
+    "ServiceResourceId": "0Hn4L0000000RMlSAM",
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": null,
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": null,
+    "ServiceTerritoryId": "0Hh4L000000TivFSAS",
+    "TerritoryType": "S"
+  },
+  {
+    "attributes": {
+      "type": "ServiceTerritoryMember",
+      "url": "/services/data/v51.0/sobjects/ServiceTerritoryMember/0Hu4L000000TfNFSA0"
+    },
+    "Id": "0Hu4L000000TfNFSA0",
+    "ServiceResourceId": "0Hn4L0000000RMlSAM",
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": -95.457215,
+    "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": 29.771706,
+    "ServiceTerritoryId": "0Hh4L000000TfLBSA0",
+    "TerritoryType": "P"
+  }
+]

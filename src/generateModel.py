@@ -8,11 +8,10 @@ from voronoi import VoronoiManager
 from plot_manager import PlotManager
 
 
-NUM_OF_CLUSTERS = 11
+NUM_OF_CLUSTERS = 4
 
 tasks = getTasksFromJson("src\input\serviceAppointment2.json")
 territory = Polygon(getPolygonsFromJson("src\input\polygonInput.json")[2]["coordinates"])
-# boundary = gpd.readfile("src\map\COH_ADMINISTRATIVE_BOUNDARY_-_MIL.shp")
 
 df = pd.DataFrame.from_dict(tasks)
 X = np.array(df[['lng', 'lat']]) * 1000000
