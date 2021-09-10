@@ -6,12 +6,14 @@ Created on Thu Sep  9 20:38:41 2021
 """
 import json
 import matplotlib.pyplot as plt
+
 def GetResourcesNames(ListAppointments):
     my_set=set()
     for item in ListAppointments:
         my_set.add(item['Assigned_Service_Resource__c'])
     ListResourcesNames = list(set(my_set))
     return ListResourcesNames
+
 def GetDistanceTwoPoints(lon1,lat1,lon2,lat2):
 #Inputs:
     from math import sin, cos, sqrt, atan2, radians
@@ -28,7 +30,8 @@ def GetDistanceTwoPoints(lon1,lat1,lon2,lat2):
     distance = R * c
     
     return distance
-scheduledAppointmentsPath='input\scheduledAppointments.json' #get input json
+
+scheduledAppointmentsPath='src\input\scheduledAppointments.json' #get input json
 drivingSpeedKM=40 #driving speed in KMs
 #*************
 file = open(scheduledAppointmentsPath,)
