@@ -27,7 +27,6 @@ def GetDistanceTwoPoints(lon1,lat1,lon2,lat2):
     
     distance = R * c
     
-    print("Result:", distance)
     return distance
 scheduledAppointmentsPath='input\scheduledAppointments.json' #get input json
 drivingSpeedKM=40 #driving speed in KMs
@@ -56,8 +55,9 @@ for resourceName in ListResourcesNames:
     #calculate distance between emergncy and standard tasks
     for resource in ListResources:       
         distance=GetDistanceTwoPoints(resource['Longitude'],resource['Latitude'],emergencyLong,emergencyLat)
-        time = distance / drivingSpeedKM
-        print(time)
+        time = (distance / drivingSpeedKM)*60
+        print("distance:", distance)
+        print("time(minutes):",time)
         
     print('\n ')
     #print tasks as a graph
