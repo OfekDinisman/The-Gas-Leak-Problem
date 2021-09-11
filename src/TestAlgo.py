@@ -31,10 +31,25 @@ def GetDistanceTwoPoints(lon1,lat1,lon2,lat2):
     
     return distance
 def CreateLog(fileName):
+
     # Set up logging
     log = fileName
     logging.basicConfig(filename=log,level=logging.DEBUG,format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
     logging.info('Start:')
+def GetEmergencyList(ListAppointments):
+    ListEmergency=list()
+    for appoint in ListAppointments:
+        #get Emergency info
+        if  appoint['WorkType']['Name']=="Emergency":
+            ListEmergency.append(appoint)
+    return ListEmergency
+def IsAppointmentDuringEmergency(appoint,emergen):#get appointment and emercency and check if they are happening at the same time
+    if(appoint['SchedStartTime']<=emergen['SchedStartTime']) and appoint['SchedEndTime']>=emergen['SchedEndTime']:
+        return True
+    return False
+
+#app 6<=7 - 8>7
+# 7
 #start
 CreateLog("TestAlgo.log")
 scheduledAppointmentsPath='input\scheduledAppointments.json' #get input json
@@ -43,7 +58,7 @@ drivingSpeedKM=40 #driving speed in KMs
 file = open(scheduledAppointmentsPath,)
 ListAppointments = json.load(file)
 ListResourcesNames=GetResourcesNames(ListAppointments)
-
+ListEmergency=GetEmergencyList(ListAppointments)
 
 for resourceName in ListResourcesNames:
     emergencyLong=0
@@ -56,11 +71,7 @@ for resourceName in ListResourcesNames:
         if appoint['Assigned_Service_Resource__c']==resourceName and appoint['WorkType']['Name']=="Standard":
             plt.scatter(appoint['Longitude'], appoint['Latitude'], c='blue')
             ListResources.append(appoint)
-        #get Emergency info
-        if appoint['Assigned_Service_Resource__c']==resourceName and appoint['WorkType']['Name']=="Emergency":
-            plt.scatter(appoint['Longitude'], appoint['Latitude'], c='red')
-            emergencyLong=appoint['Longitude']
-            emergencyLat=appoint['Latitude']
+    
     #calculate distance between emergncy and standard tasks
     for resource in ListResources:       
         distance=GetDistanceTwoPoints(resource['Longitude'],resource['Latitude'],emergencyLong,emergencyLat)
