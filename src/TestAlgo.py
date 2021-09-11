@@ -7,6 +7,7 @@ Created on Thu Sep  9 20:38:41 2021
 import json
 import matplotlib.pyplot as plt
 import logging
+import dateutil.parser
 def GetResourcesNames(ListAppointments):
     my_set=set()
     for item in ListAppointments:
@@ -43,13 +44,23 @@ def GetEmergencyList(ListAppointments):
         if  appoint['WorkType']['Name']=="Emergency":
             ListEmergency.append(appoint)
     return ListEmergency
+def GetDateTime(date):
+    if not date:
+        return None
+    dt=dateutil.parser.parse((date.split("+")[0])+'Z')
+    return dt
 def IsAppointmentDuringEmergency(appoint,emergen):#get appointment and emercency and check if they are happening at the same time
-    if(appoint['SchedStartTime']<=emergen['SchedStartTime']) and appoint['SchedEndTime']>=emergen['SchedEndTime']:
+    appointds  = GetDateTime(appoint['SchedStartTime'])#start time   
+    emergends = GetDateTime(emergen['SchedStartTime'])#""
+    appointes = GetDateTime(appoint['SchedEndTime'])#end time   
+    emergenes = GetDateTime(emergen['SchedEndTime'])#""
+    if(appointds==emergends or appointes==emergenes):
+        return True
+    if(appointds<emergends and appointes>emergends):
+        return True
+    if(appointds<emergenes and appointes>emergenes):
         return True
     return False
-
-#app 6<=7 - 8>7
-# 7
 #start
 CreateLog("TestAlgo.log")
 scheduledAppointmentsPath='input\scheduledAppointments.json' #get input json
@@ -60,34 +71,47 @@ ListAppointments = json.load(file)
 ListResourcesNames=GetResourcesNames(ListAppointments)
 ListEmergency=GetEmergencyList(ListAppointments)
 
+#**need to create a loop in here
+currentEmergency=ListEmergency[2]
+plt.scatter(currentEmergency['Longitude'], currentEmergency['Latitude'], c='red')
+ListAppInSameTime=list()#reset List
 for resourceName in ListResourcesNames:
-    emergencyLong=0
-    emergencyLat=0
-    ListResources=list()
-    print(resourceName)
-    print('\n ')
     for appoint in ListAppointments:
         #get standard tasks info
         if appoint['Assigned_Service_Resource__c']==resourceName and appoint['WorkType']['Name']=="Standard":
-            plt.scatter(appoint['Longitude'], appoint['Latitude'], c='blue')
-            ListResources.append(appoint)
-    
-    #calculate distance between emergncy and standard tasks
-    for resource in ListResources:       
-        distance=GetDistanceTwoPoints(resource['Longitude'],resource['Latitude'],emergencyLong,emergencyLat)
-        time = (distance / drivingSpeedKM)*60
+            if IsAppointmentDuringEmergency(appoint,ListEmergency[2])==True:
+                ListAppInSameTime.append(appoint)
+                plt.scatter(appoint['Longitude'], appoint['Latitude'], c='blue')
+                
+#calculate distance between emergncy and standard tasks
+if len(ListAppInSameTime) > 0:
+    #init value
+    minDistance=GetDistanceTwoPoints(ListAppInSameTime[0]['Longitude'],ListAppInSameTime[0]['Latitude'],currentEmergency['Longitude'],currentEmergency['Latitude'])
+    minAppointment=ListAppInSameTime[0]
+    for appInSameTime in ListAppInSameTime:       
+        distance=GetDistanceTwoPoints(appInSameTime['Longitude'],appInSameTime['Latitude'],currentEmergency['Longitude'],currentEmergency['Latitude'])#calculate distance between appointment point and emergncy
+        if distance<minDistance:#save min distance
+            minDistance=distance
+            minAppointment=appInSameTime
         print("distance:", distance)
-        print("time(minutes):",time)
+    #result
+    print("MinDistance:",minDistance)
+    time = (distance / drivingSpeedKM)*60
+    print("time(minutes):",time)
+    print("Appointment:\n",minAppointment)
+else:
+    minDistance=None
+    minAppointment=None
         
-    print('\n ')
-    #print tasks as a graph
-    plotTitle="Show Appointments for resource:"+resourceName+"\nstanard in blue,emergency in red color"
-    plt.title(plotTitle)
-    plt.xlabel('Longitude')
-    plt.ylabel('Latitude')
-    imageFileName="img_"+resourceName+".png"
-    plt.savefig(imageFileName)
-    plt.show()
+print('\n ')
+#print tasks as a graph
+plotTitle="Show Appointments in the same time as the Emergency\nstanard in blue,emergency in red color"
+plt.title(plotTitle)
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+imageFileName="img_"+currentEmergency['Id']+".png"
+plt.savefig(imageFileName)
+plt.show()
 
 
 
