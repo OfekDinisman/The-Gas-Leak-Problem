@@ -4,6 +4,10 @@ from const import COMPOSITE
 class SFSManager:
     def __init__(self, URL) -> None:
         self.URL = URL
+    
+    def get_query(self, query):
+        r = sf_api_call(self.URL, method='get', parameters={'q': query})
+        return r
 
     def create_one(self, data):
         r = sf_api_call(self.URL, method='post', data=data)

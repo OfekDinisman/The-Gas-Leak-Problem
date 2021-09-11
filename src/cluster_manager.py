@@ -23,9 +23,9 @@ class ClusterManager():
         dfnew=pd.concat([self.df,labels],axis=1,sort=False)
         return num_clusters, dfnew
 
-    def kmeans(self, NUM_CLUSTERS):
+    def kmeans(self, NUM_CLUSTERS, sample_weight):
         kmeans = KMeans(n_clusters = NUM_CLUSTERS, init ='k-means++')
-        kmeans.fit(self.X, sample_weight=None) # Compute k-means clustering.
+        kmeans.fit(self.X, sample_weight=sample_weight) # Compute k-means clustering.
         self.df['CLUSTER_LABEL'] = kmeans.fit_predict(self.X)
         centers = kmeans.cluster_centers_ # Coordinates of cluster centers.
         labels = kmeans.predict(self.X) # Labels of each point
