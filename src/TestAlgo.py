@@ -6,15 +6,15 @@ Created on Thu Sep  9 20:38:41 2021
 """
 import json
 import matplotlib.pyplot as plt
-
+import logging
 def GetResourcesNames(ListAppointments):
     my_set=set()
     for item in ListAppointments:
         my_set.add(item['Assigned_Service_Resource__c'])
     ListResourcesNames = list(set(my_set))
     return ListResourcesNames
-
 def GetDistanceTwoPoints(lon1,lat1,lon2,lat2):
+
 #Inputs:
     from math import sin, cos, sqrt, atan2, radians
 
@@ -30,8 +30,14 @@ def GetDistanceTwoPoints(lon1,lat1,lon2,lat2):
     distance = R * c
     
     return distance
-
-scheduledAppointmentsPath='src\input\scheduledAppointments.json' #get input json
+def CreateLog(fileName):
+    # Set up logging
+    log = fileName
+    logging.basicConfig(filename=log,level=logging.DEBUG,format='%(asctime)s %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
+    logging.info('Start:')
+#start
+CreateLog("TestAlgo.log")
+scheduledAppointmentsPath='input\scheduledAppointments.json' #get input json
 drivingSpeedKM=40 #driving speed in KMs
 #*************
 file = open(scheduledAppointmentsPath,)
@@ -52,7 +58,7 @@ for resourceName in ListResourcesNames:
             ListResources.append(appoint)
         #get Emergency info
         if appoint['Assigned_Service_Resource__c']==resourceName and appoint['WorkType']['Name']=="Emergency":
-            plt.scatter(appoint['Longitude'], appoint['Latitude'], c='darkblue')
+            plt.scatter(appoint['Longitude'], appoint['Latitude'], c='red')
             emergencyLong=appoint['Longitude']
             emergencyLat=appoint['Latitude']
     #calculate distance between emergncy and standard tasks
@@ -64,10 +70,12 @@ for resourceName in ListResourcesNames:
         
     print('\n ')
     #print tasks as a graph
-    plt.title('Show Appointments for each resources,emergency in darker color')
+    plotTitle="Show Appointments for resource:"+resourceName+"\nstanard in blue,emergency in red color"
+    plt.title(plotTitle)
     plt.xlabel('Longitude')
     plt.ylabel('Latitude')
-    plt.savefig('ScatterPlot_05.png')
+    imageFileName="img_"+resourceName+".png"
+    plt.savefig(imageFileName)
     plt.show()
 
 
