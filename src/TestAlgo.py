@@ -129,6 +129,7 @@ for currentEmergency in ListEmergency:
                 minDistance=distance
                 minAppointment=appInSameTime
             #print("distance:", distance)
+            
         #result
         #save result to object
         time = (distance / drivingSpeedKM)*60#calculate time to get to emergency
@@ -140,11 +141,13 @@ for currentEmergency in ListEmergency:
             logging.info('Success')
         else:
             logging.info('Fail')
-            logging.info("Appointment:"+str(eo.appointment))
-            logging.info("Resource:"+str(eo.resource))
-            logging.info("Emergency:"+str(eo.emergency))
             
-        
+        logging.info("Appointment:"+str(eo.appointment))
+        logging.info("Resource:"+str(eo.resource))
+        logging.info("Emergency:"+str(eo.emergency))
+        #mark the chosen appointment on the plot
+        plt.scatter(minAppointment['Longitude'], minAppointment['Latitude'], c='green')
+         
     else:
         minDistance=None
         minAppointment=None
@@ -153,14 +156,14 @@ for currentEmergency in ListEmergency:
         ListEmergencyOutput.append(eo)#add it to the list of all results
 
     logging.info('\n ')
-#print tasks as a graph
-plotTitle="Show Appointments in the same time as the Emergency\nstanard in blue,emergency in red color"
-plt.title(plotTitle)
-plt.xlabel('Longitude')
-plt.ylabel('Latitude')
-imageFileName="img_"+currentEmergency['Id']+".png"
-plt.savefig(imageFileName)
-plt.show()
+    #print tasks as a graph
+    plotTitle="Show Appointments in the same time as the Emergency\nstandard in blue,nearest in green,emergency in red color"
+    plt.title(plotTitle)
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
+    imageFileName="img_"+currentEmergency['Id']+".png"
+    plt.savefig(imageFileName)
+    plt.show()
 
 #output
 presentage=GetSuccessRate(ListEmergencyOutput)
