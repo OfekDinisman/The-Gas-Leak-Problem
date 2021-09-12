@@ -5,17 +5,28 @@ from const import QUERY_URL
 from queries import QUERY_SA_STD, QUERY_SA_EMG, QUERY_SR
 from getInput import getTasksFromJson, getPolygonsFromJson
 from generateModel import GenerateModel
+from adopt_model import AdoptModel
 
-SIMULATION_DATASET = None
+
+SIMULATION_DATASET = 1
 COMPLIANCE_RATE = 0.9
 DELAY_TIME = 30
 
-query_manager = SFSManager(QUERY_URL)
+sfs_manager = SFSManager()
 
-# standard_tasks = query_manager.get_query(QUERY_SA_STD % SIMULATION_DATASET)['records']
-tasks = getTasksFromJson("src\input\serviceAppointment3.json")
+standard_tasks = sfs_manager.get_query(QUERY_SA_STD % SIMULATION_DATASET)['records']
+tasks = getTasksFromJson(standard_tasks)
+# tasks = getTasksFromJson("src\input\serviceAppointment3.json")
 territory = Polygon(getPolygonsFromJson("src\input\polygonInput.json")[2]["coordinates"])
-resources = query_manager.get_query(QUERY_SR)
+resources = sfs_manager.get_query(QUERY_SR)
 
+# Generate Model...
 model = GenerateModel(tasks, resources, territory, COMPLIANCE_RATE, DELAY_TIME)
-model.run()
+polygons = model.run()
+
+# Adopt Model...
+adopt = AdoptModel(tasks, polygons, resources, SIMULATION_DATASET)
+adopt.run()
+# Optimize...
+
+# Test...

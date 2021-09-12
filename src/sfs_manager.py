@@ -1,38 +1,43 @@
 from sfsConnect import sf_api_call
-from const import COMPOSITE
+from const import COMPOSITE, QUERY_URL
 
 class SFSManager:
-    def __init__(self, URL) -> None:
-        self.URL = URL
-    
+    def __init__(self) -> None:
+        pass
+
     def get_query(self, query):
-        r = sf_api_call(self.URL, method='get', parameters={'q': query})
+        r = sf_api_call(QUERY_URL, method='get', parameters={'q': query})
         return r
 
-    def create_one(self, data):
-        r = sf_api_call(self.URL, method='post', data=data)
+    def create_one(self, URL, data):
+        r = sf_api_call(URL, method='post', data=data)
         return r
 
     def create_many(self, data):
         r = sf_api_call(COMPOSITE, method='post', data=data)
         return r
         
-    def update_one(self, id, data):
-        r = sf_api_call(self.URL + "/" + id, method='patch', data=data)
+    def update_one(self, URL, id, data):
+        r = sf_api_call(URL + "/" + id, method='patch', data=data)
         return r
 
-    def get(self, id):
-        r = sf_api_call(self.URL + "/" + id, method='get')
+    def update_many(self, data):
+        r = sf_api_call(COMPOSITE + "/sobjects", method='patch', data=data)
+        return r
+
+    def get(self, URL, id):
+        r = sf_api_call(URL + "/" + id, method='get')
         return r
     
-    def get_all(self):
-        r = sf_api_call(self.URL, method='get')
+    def get_all(self, URL):
+        r = sf_api_call(URL, method='get')
         return r
 
-    def delete_one(self, id):
-        r = sf_api_call(self.URL + "/" + id, method='delete')
+    def delete_one(self, URL, id):
+        r = sf_api_call(URL + "/" + id, method='delete')
         return r
 
     def delete_many(self, params):
+        # params = {"ids": "0Hu4L000000TfNFSA0,0Hu4L000000TgawSAC"}
         r = sf_api_call(COMPOSITE + "/sobjects", method='delete', parameters=params)
         return r

@@ -1,5 +1,5 @@
 import json
-from const import SERVICE_TERRITORY_MEMBER, PREFIX_URL
+from const import SERVICE_TERRITORY_MEMBER, PREFIX_URL, SERVICE_TERRITORY
 from sfs_manager import SFSManager
 
 
@@ -40,17 +40,27 @@ STM = {
     "TerritoryType": "S" 
 }
 
+SA_UPDATE = {
+  "records" : [{
+      "attributes" : {"type" : "ServiceAppointment"},
+      "id" : "08p4L000000h80vQAA",
+      "ServiceTerritoryId" : "0Hh4L000000TivYSAS"
+   },{
+      "attributes" : {"type" : "ServiceAppointment"},
+      "id" : "08p4L000000h80wQAA",
+      "ServiceTerritoryId" : "0Hh4L000000TivYSAS"
+   }]
+}
 
-# stm_creator = SFSManager(PREFIX_URL + '/composite')
-# r = stm_creator.create_many(STM_BATCH)
-stm_creator = SFSManager(SERVICE_TERRITORY_MEMBER)
-# r = stm_creator.get_all()
-r = stm_creator.delete_one('0Hu4L000000TiyRSAS')
-r = stm_creator.create_one(STM)
+sfs_manager = SFSManager()
+# r = sfs_manager.create_many(STM_BATCH)
+# r = sfs_manager.get_all(SERVICE_TERRITORY)
+# r = sfs_manager.delete_one(SERVICE_TERRITORY_MEMBER, '0Hu4L000000TiyRSAS')
+# r = sfs_manager.create_one(SERVICE_TERRITORY_MEMBER, STM)
+r = sfs_manager.update_many(SA_UPDATE)
 
-
-# params = {"ids": "0Hu4L000000TfNFSA0,0Hu4L000000TgawSAC"}
-# r = stm_creator.delete_many(params)
+# params = {"ids": "0Hh4L000000TivfSAC,0Hh4L000000TivhSAC,0Hh4L000000TivkSAC,0Hh4L000000TivpSAC,0Hh4L000000TivjSAC,0Hh4L000000TiveSAC,0Hh4L000000TivoSAC"}
+# r = sfs_manager.delete_many(params)
 
 print(json.dumps(r, indent=2))
 

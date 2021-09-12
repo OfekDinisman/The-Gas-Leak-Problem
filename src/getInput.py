@@ -22,9 +22,9 @@ def getPolygonsFromJson(jsonfile):
     return polygons
 
 
-def getTasksFromJson(jsonfile):
-    file = open(jsonfile,)
-    data = json.load(file)
+def getTasksFromJson(data):
+    # file = open(jsonfile,)
+    # data = json.load(file)
     tasks = []
     for d in data:
         task = {}

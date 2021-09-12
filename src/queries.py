@@ -1,5 +1,5 @@
 # ServiceAppointment Standard Tasks
-QUERY_SA_STD = "SELECT Id, Longitude, Latitude, EarliestStartTime, Simulation_Dataset__c, WorkType.Name, ServiceTerritoryId, SchedStartTime, SchedEndTime, Assigned_Service_Resource__c FROM ServiceAppointment WHERE WorkType.Name='Emergency' and Simulation_Dataset__c='%s' ORDER BY Assigned_Service_Resource__c, SchedStartTime"
+QUERY_SA_STD = "SELECT Id, Longitude, Latitude, EarliestStartTime, Simulation_Dataset__c, WorkType.Name, ServiceTerritoryId, SchedStartTime, SchedEndTime, Assigned_Service_Resource__c FROM ServiceAppointment WHERE WorkType.Name='Standard' and Simulation_Dataset__c='%s' ORDER BY Assigned_Service_Resource__c, SchedStartTime"
 QUERY_SA_EMG = "SELECT Id, Longitude, Latitude, EarliestStartTime, Simulation_Dataset__c, WorkType.Name, ServiceTerritoryId, SchedStartTime, SchedEndTime, Assigned_Service_Resource__c FROM ServiceAppointment WHERE WorkType.Name='Emergency' and Simulation_Dataset__c='%s' ORDER by Assigned_Service_Resource__c ,SchedStartTime"
 
 # ServiceAppointment Emergency

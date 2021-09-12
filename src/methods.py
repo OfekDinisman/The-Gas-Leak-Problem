@@ -9,3 +9,4 @@ def assignPointsToPolygons(points, polygons):
                 poly_points.append(point)
         result[poly] = poly_points
     return result
+
