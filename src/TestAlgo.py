@@ -61,49 +61,91 @@ def IsAppointmentDuringEmergency(appoint,emergen):#get appointment and emercency
     if(appointds<emergenes and appointes>emergenes):
         return True
     return False
+def get_json_data(ListEmergencyOutput):
+    '''
+    Convert string array to json array
+    '''
+    result = []
+    for item in ListEmergencyOutput:
+        result.append(json.loads(item.toJSON()))
+
+    return json.dumps(result)
+def GetSucceedCount(ListEmergencyOutput):
+    count=0
+    for item in ListEmergencyOutput:
+        if item.isSucceed==True:
+            count=count+1
+    return count
 #start
+
+class EmergencyOutput():
+    def __init__(self, distance,isSucceed,resource,appointment,emergency):
+        self.distance = distance#distance between the nearst appointment and emergency
+        self.isSucceed = isSucceed#is succeed=True or failed=False
+        self.resource = resource#resource name
+        self.appointment = appointment#appointment ID
+        self.emergency = emergency#emergency ID
+        
+    def toJSON(self):
+           return json.dumps(self, default=lambda o: o.__dict__, 
+               sort_keys=True, indent=4)
+
 CreateLog("TestAlgo.log")
 scheduledAppointmentsPath='input\scheduledAppointments.json' #get input json
 drivingSpeedKM=40 #driving speed in KMs
+arrivalTimeToEmergency=60 #max time to get to the emergnecy in minutes
 #*************
 file = open(scheduledAppointmentsPath,)
 ListAppointments = json.load(file)
 ListResourcesNames=GetResourcesNames(ListAppointments)
 ListEmergency=GetEmergencyList(ListAppointments)
+#output
+ListEmergencyOutput=[]
 
 #**need to create a loop in here
-currentEmergency=ListEmergency[2]
-plt.scatter(currentEmergency['Longitude'], currentEmergency['Latitude'], c='red')
-ListAppInSameTime=list()#reset List
-for resourceName in ListResourcesNames:
-    for appoint in ListAppointments:
-        #get standard tasks info
-        if appoint['Assigned_Service_Resource__c']==resourceName and appoint['WorkType']['Name']=="Standard":
-            if IsAppointmentDuringEmergency(appoint,ListEmergency[2])==True:
-                ListAppInSameTime.append(appoint)
-                plt.scatter(appoint['Longitude'], appoint['Latitude'], c='blue')
-                
-#calculate distance between emergncy and standard tasks
-if len(ListAppInSameTime) > 0:
-    #init value
-    minDistance=GetDistanceTwoPoints(ListAppInSameTime[0]['Longitude'],ListAppInSameTime[0]['Latitude'],currentEmergency['Longitude'],currentEmergency['Latitude'])
-    minAppointment=ListAppInSameTime[0]
-    for appInSameTime in ListAppInSameTime:       
-        distance=GetDistanceTwoPoints(appInSameTime['Longitude'],appInSameTime['Latitude'],currentEmergency['Longitude'],currentEmergency['Latitude'])#calculate distance between appointment point and emergncy
-        if distance<minDistance:#save min distance
-            minDistance=distance
-            minAppointment=appInSameTime
-        print("distance:", distance)
-    #result
-    print("MinDistance:",minDistance)
-    time = (distance / drivingSpeedKM)*60
-    print("time(minutes):",time)
-    print("Appointment:\n",minAppointment)
-else:
-    minDistance=None
-    minAppointment=None
+for currentEmergency in ListEmergency:
+    plt.scatter(currentEmergency['Longitude'], currentEmergency['Latitude'], c='red')
+    ListAppInSameTime=list()#reset List
+    for resourceName in ListResourcesNames:
+        for appoint in ListAppointments:
+            #get standard tasks info
+            if appoint['Assigned_Service_Resource__c']==resourceName and appoint['WorkType']['Name']=="Standard":
+                if IsAppointmentDuringEmergency(appoint,ListEmergency[2])==True:
+                    ListAppInSameTime.append(appoint)
+                    plt.scatter(appoint['Longitude'], appoint['Latitude'], c='blue')
+                    
+    #calculate distance between emergncy and standard tasks
+    if len(ListAppInSameTime) > 0:
+        #init value
+        minDistance=GetDistanceTwoPoints(ListAppInSameTime[0]['Longitude'],ListAppInSameTime[0]['Latitude'],currentEmergency['Longitude'],currentEmergency['Latitude'])
+        minAppointment=ListAppInSameTime[0]
+        for appInSameTime in ListAppInSameTime:       
+            distance=GetDistanceTwoPoints(appInSameTime['Longitude'],appInSameTime['Latitude'],currentEmergency['Longitude'],currentEmergency['Latitude'])#calculate distance between appointment point and emergncy
+            if distance<minDistance:#save min distance
+                minDistance=distance
+                minAppointment=appInSameTime
+            #print("distance:", distance)
+        #result
+        #save result to object
+        time = (distance / drivingSpeedKM)*60#calculate time to get to emergency
+        eo=EmergencyOutput(minDistance,time<=arrivalTimeToEmergency,minAppointment['Assigned_Service_Resource__c'],minAppointment['Id'],currentEmergency['Id'])
+        ListEmergencyOutput.append(eo)#add it to the list of all results
+        logging.info("MinDistance:"+str(eo.distance))
         
-print('\n ')
+        if eo.isSucceed==True:
+            logging.info('Success')
+        else:
+        logging.info('Fail')
+        logging.info("Appointment:"+str(eo.appointment))
+        logging.info("Resource:"+str(eo.resource))
+        logging.info("Emergency:"+str(eo.emergency))
+        
+        
+    else:
+        minDistance=None
+        minAppointment=None
+        logging.info('Fail')
+    logging.info('\n ')
 #print tasks as a graph
 plotTitle="Show Appointments in the same time as the Emergency\nstanard in blue,emergency in red color"
 plt.title(plotTitle)
@@ -115,6 +157,7 @@ plt.show()
 
 
 
-
+jsonOutput=get_json_data(ListEmergencyOutput)
 #
+logging.info('end')
 print('end')
