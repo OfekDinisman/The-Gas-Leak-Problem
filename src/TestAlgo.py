@@ -76,6 +76,10 @@ def GetSucceedCount(ListEmergencyOutput):
         if item.isSucceed==True:
             count=count+1
     return count
+def GetSuccessRate(ListEmergencyOutput):
+    count=GetSucceedCount(ListEmergencyOutput)
+    presentage= (count / len(ListEmergencyOutput)) *100 
+    return presentage
 #start
 
 class EmergencyOutput():
@@ -135,16 +139,19 @@ for currentEmergency in ListEmergency:
         if eo.isSucceed==True:
             logging.info('Success')
         else:
-        logging.info('Fail')
-        logging.info("Appointment:"+str(eo.appointment))
-        logging.info("Resource:"+str(eo.resource))
-        logging.info("Emergency:"+str(eo.emergency))
-        
+            logging.info('Fail')
+            logging.info("Appointment:"+str(eo.appointment))
+            logging.info("Resource:"+str(eo.resource))
+            logging.info("Emergency:"+str(eo.emergency))
+            
         
     else:
         minDistance=None
         minAppointment=None
-        logging.info('Fail')
+        logging.info('Fail to get to emergency')
+        eo=EmergencyOutput(None,False,None,None,currentEmergency['Id'])#didn't find a match to the emergency
+        ListEmergencyOutput.append(eo)#add it to the list of all results
+
     logging.info('\n ')
 #print tasks as a graph
 plotTitle="Show Appointments in the same time as the Emergency\nstanard in blue,emergency in red color"
@@ -155,9 +162,14 @@ imageFileName="img_"+currentEmergency['Id']+".png"
 plt.savefig(imageFileName)
 plt.show()
 
-
-
+#output
+presentage=GetSuccessRate(ListEmergencyOutput)
 jsonOutput=get_json_data(ListEmergencyOutput)
+#write json to file
+with open('ListEmergencyOutput.json', 'w') as f:
+   f.write(jsonOutput)
 #
+print("SuccessRate:"+str(presentage))
+logging.info("SuccessRate:"+str(presentage))
 logging.info('end')
 print('end')
