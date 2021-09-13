@@ -18,7 +18,7 @@ standard_tasks = sfs_manager.get_query(QUERY_SA_STD % SIMULATION_DATASET)['recor
 tasks = getTasksFromJson(standard_tasks)
 # tasks = getTasksFromJson("src\input\serviceAppointment3.json")
 territory = Polygon(getPolygonsFromJson("src\input\polygonInput.json")[2]["coordinates"])
-resources = sfs_manager.get_query(QUERY_SR)
+resources = sfs_manager.get_query(QUERY_SR)['records']
 
 # Generate Model...
 model = GenerateModel(tasks, resources, territory, COMPLIANCE_RATE, DELAY_TIME)
@@ -26,7 +26,8 @@ polygons = model.run()
 
 # Adopt Model...
 adopt = AdoptModel(tasks, polygons, resources, SIMULATION_DATASET)
-adopt.run()
+stms = adopt.run()
+
 # Optimize...
 
 # Test...

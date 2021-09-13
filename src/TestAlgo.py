@@ -63,7 +63,7 @@ def IsAppointmentDuringEmergency(appoint,emergen):#get appointment and emercency
     return False
 #start
 CreateLog("TestAlgo.log")
-scheduledAppointmentsPath='input\scheduledAppointments.json' #get input json
+scheduledAppointmentsPath='src\input\scheduledAppointments.json' #get input json
 drivingSpeedKM=40 #driving speed in KMs
 #*************
 file = open(scheduledAppointmentsPath,)

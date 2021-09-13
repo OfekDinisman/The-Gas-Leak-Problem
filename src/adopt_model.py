@@ -1,7 +1,7 @@
 from logging import raiseExceptions
 from shapely.geometry import Polygon, Point
 
-from const import SERVICE_TERRITORY
+from const import SERVICE_TERRITORY, SERVICE_TERRITORY_MEMBER
 from sfs_manager import SFSManager
 
 
@@ -26,7 +26,11 @@ class AdoptModel():
         for poly in self.polygons:
             if self.polygons[poly].contains(point):
                 return poly
-        raise "Point not in a Polygon"
+        raiseExceptions("Point not in a Polygon")
+
+    # TODO:
+    def _get_resource_territory_id(resource):
+        pass
 
     def createServiceTerritories(self):
         composite = []
@@ -56,20 +60,37 @@ class AdoptModel():
             records.append(task_info)
         return self.sfs_manager.update_many({"records": records})
 
-    def createServiceTerritoryMemebers(self):
-        pass
+    def createServiceTerritoryMembers(self):
+        composite = []
+        for i, resource in enumerate(self.resources):
+            resource_territory_id = self._get_resource_territory_id(resource)
+            sr = {
+                "method": "POST",
+                "url": SERVICE_TERRITORY_MEMBER,
+                "referenceId": "ref" + str(i),
+                "body": {
+                    "ServiceResourceId": resource["resource_id"],
+                    # "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": "-95.437886",
+                    # "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": "29.827403",
+                    "ServiceTerritoryId": resource_territory_id,
+                    "EffectiveStartDate": "2021-01-30T13:27:00.000+0000",
+                    "TerritoryType": "S"
+                }
+            }
+            composite.append(sr)
+        return self.sfs_manager.create_many({"compositeRequest": composite})
+
 
     def run(self):
-        # for every Polygon create a Service Territory - get ST ID
+        # for every Polygon create a Service Territory
         response = self.createServiceTerritories()
         self.ST = [res["body"]["id"] for res in response["compositeResponse"]]
         # self.ST = ['0Hh4L000000TiwSSAS', '0Hh4L000000TiwXSAS', '0Hh4L000000TiwcSAC', '0Hh4L000000TiwTSAS']
 
-        # assign points to polygon and give them Territory ID
+        # update SA to new STs
         self.updateServiceAppointments()
 
-        # assign resource to polygon
-        
-        # for every resource
-            # create STM and assign Service Resource Id and Service Territory Id
+        # create STMs
+        # stms = self.createServiceTerritoryMembers()
 
+        return stms

@@ -22,9 +22,12 @@ def getPolygonsFromJson(jsonfile):
     return polygons
 
 
-def getTasksFromJson(data):
-    # file = open(jsonfile,)
-    # data = json.load(file)
+def getTasksFromJson(json_data):
+    try:
+        file = open(json_data,)
+        data = json.load(file)
+    except:
+        data = json_data
     tasks = []
     for d in data:
         task = {}
@@ -54,9 +57,12 @@ def getTasksFromJson(data):
 # coordinates = getStandardTaskCoordinates(tasks)
 # print(coordinates)
 
-def getResourceFromJson(jsonfile):
-    file = open(jsonfile,)
-    data = json.load(file)
+def getResourceFromJson(json_data):
+    try:
+        file = open(json_data,)
+        data = json.load(file)
+    except:
+        data = json_data
     resources = []
     for d in data:
         resource = {}
