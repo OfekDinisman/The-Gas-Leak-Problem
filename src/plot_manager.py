@@ -20,7 +20,7 @@ class PlotManager():
             plt.plot(xs, xy)
         plt.show()
     
-    def plotPlolygonsAndPoints(self, points, polygons):
+    def plotPolygonsAndPoints(self, points, polygons):
         plt.figure()
         x, y = points.T
         plt.scatter(x, y)

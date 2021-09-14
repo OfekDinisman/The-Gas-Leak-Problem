@@ -1,5 +1,4 @@
-import json
-import pandas as pd, numpy as np, matplotlib.pyplot as plt
+import pandas as pd, numpy as np
 from shapely.geometry import Polygon, Point
 
 from getInput import getPolygonsFromJson, getTasksFromJson
@@ -58,7 +57,7 @@ class GenerateModel():
         vor = VoronoiManager(cluster_centers, self.territory)
         polys, points, = vor.getVor()
 
-        plot = PlotManager()
-        plot.plotPlolygonsAndPoints(X, polys.values())
+        plt = PlotManager()
+        plt.plotPolygonsAndPoints(X, polys.values())
 
-        return polys.values()
+        return list(polys.values())

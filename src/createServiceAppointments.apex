@@ -2,12 +2,12 @@
 
 double latitude = 29.737882871554312;
 double longitude = -95.46285831417906;
-double radius = 1.2;
+double radius = 0.6;
 
 
 DateTime StartDate = DateTime.newInstance(2022, 1, 4, 7, 00, 00);
 DateTime EndDate = DateTime.newInstance(2022, 1, 4, 20, 00, 00);
-String Simulation_Dataset = '1';
+String Simulation_Dataset = '2';
 
 // LU 29.820414777342126, -95.9933880169435
 // RD 29.56388233493162, -95.0920235039353

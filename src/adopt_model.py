@@ -1,5 +1,7 @@
 from logging import raiseExceptions
 from shapely.geometry import Polygon, Point
+from scipy.optimize import linear_sum_assignment
+import pandas as pd, numpy as np, matplotlib.pyplot as plt
 
 from const import SERVICE_TERRITORY, SERVICE_TERRITORY_MEMBER, MAP_POLYGON, FSL_FILE, MILLION
 from sfs_manager import SFSManager
@@ -14,13 +16,14 @@ class AdoptModel():
         self.NUM_OF_POLYS = len(self.polygons)
         self.dataset = dataset
 
-    def _get_point_from_task(self, task):
-        return Point(task['lng'] * MILLION, task['lat'] * MILLION)
+    @staticmethod
+    def _get_point_from_object(obj):
+        return Point(obj['lng'] * MILLION, obj['lat'] * MILLION)
 
     def _get_task_territory_id(self, task):
-        point = self._get_point_from_task(task)
+        point = self._get_point_from_object(task)
         poly_index = self._get_assigned_poly_idx(point)
-        return self.ST[poly_index]
+        return self.territories[poly_index]
 
     def _get_assigned_poly_idx(self, point):
         for i, poly in enumerate(self.polygons):
@@ -28,9 +31,24 @@ class AdoptModel():
                 return i
         raiseExceptions("Point not in a Polygon")
 
-    # TODO:
-    def _get_resource_territory_id(resource):
-        pass
+    def _get_resource_territory_id(self, resource):
+        return self.territories[self.resource_assignment[resource]]
+
+    def create_cost_array(self):
+        cost_array = []
+        for resource in self.resources:
+            point = self._get_point_from_object(resource)
+            cost_array_row = []
+            for poly in self.polygons:
+                cost_array_row.append(point.distance(poly))
+            cost_array.append(cost_array_row)
+        return cost_array
+
+    def assign_resource_to_territory(self):
+        cost_array = self.create_cost_array()
+        row_ind, col_ind = linear_sum_assignment(cost_array)
+        self.resource_assignment = col_ind
+
 
     @staticmethod
     def get_params_from_poly(polygon):
@@ -69,7 +87,7 @@ class AdoptModel():
         composite = []
         for i, poly in enumerate(self.polygons):
             params = self.get_params_from_poly(poly)
-            territory_id = self.ST[i]
+            territory_id = self.territories[i]
             mp = {
                 "method": "POST",
                 "url": MAP_POLYGON,
@@ -102,15 +120,13 @@ class AdoptModel():
     def createServiceTerritoryMembers(self):
         composite = []
         for i, resource in enumerate(self.resources):
-            resource_territory_id = self._get_resource_territory_id(resource)
+            resource_territory_id = self._get_resource_territory_id(i)
             sr = {
                 "method": "POST",
                 "url": SERVICE_TERRITORY_MEMBER,
                 "referenceId": "ref" + str(i),
                 "body": {
                     "ServiceResourceId": resource["resource_id"],
-                    # "FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s": "-95.437886",
-                    # "FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s": "29.827403",
                     "ServiceTerritoryId": resource_territory_id,
                     "EffectiveStartDate": "2021-01-30T13:27:00.000+0000",
                     "TerritoryType": "S"
@@ -123,8 +139,8 @@ class AdoptModel():
     def run(self):
         # for every Polygon create a Service Territory
         response = self.createServiceTerritories()
-        self.ST = [res["body"]["id"] for res in response["compositeResponse"]]
-        # self.ST = ['0Hh4L000000TiwSSAS', '0Hh4L000000TiwXSAS', '0Hh4L000000TiwcSAC', '0Hh4L000000TiwTSAS']
+        self.territories = [res["body"]["id"] for res in response["compositeResponse"]]
+        # self.territories = ['0Hh4L000000TiwSSAS', '0Hh4L000000TiwXSAS', '0Hh4L000000TiwcSAC', '0Hh4L000000TiwTSAS']
 
         # create polygons
         self.createPolygons()
@@ -133,6 +149,18 @@ class AdoptModel():
         self.updateServiceAppointments()
 
         # create STMs
+        self.assign_resource_to_territory()
         stms = self.createServiceTerritoryMembers()
 
         return stms
+
+
+        # df = pd.DataFrame.from_dict(self.resources)
+        # X = np.array(df[['lng', 'lat']]) * MILLION
+        # X.astype(int)
+        # for i in range(self.NUM_OF_POLYS):
+        #     xs, xy = self.polygons[self.resource_assignment[i]].exterior.xy
+        #     plt.plot(xs, xy)
+        #     x, y = X[i].T
+        #     plt.scatter(x, y)
+        # plt.show()

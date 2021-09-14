@@ -70,5 +70,5 @@ def getResourceFromJson(json_data):
         resource["resource_id"]     = d["ServiceResourceId"]
         resource["lat"]             = d["FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s"]
         resource["lng"]             = d["FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s"]
-        resource.append(resource)
+        resources.append(resource)
     return resources

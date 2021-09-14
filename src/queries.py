@@ -7,6 +7,8 @@ QUERY_SA_EMG = "SELECT Id, Longitude, Latitude, EarliestStartTime, Simulation_Da
 
 # ServiceTerritoryMember
 QUERY_STM = 'SELECT Id, ServiceResourceId, ServiceTerritoryId, FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s, FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s, TerritoryType FROM ServiceTerritoryMember'
+QUERY_STM_GAS_LEAK_1 = "SELECT Id, ServiceResourceId, ServiceTerritoryId, FSL__Internal_SLR_HomeAddress_Geolocation__Latitude__s, FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s, TerritoryType FROM ServiceTerritoryMember WHERE ServiceTerritory.Name='GasLeak1'"
+
 
 # ServiceTerritory
 QUERY_ST = 'SELECT Id FROM ServiceTerritory'

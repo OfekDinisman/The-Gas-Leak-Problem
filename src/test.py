@@ -1,5 +1,5 @@
 import json
-from const import SERVICE_TERRITORY_MEMBER, PREFIX_URL, SERVICE_TERRITORY, MAP_POLYGON
+from const import SERVICE_TERRITORY_MEMBER, PREFIX_URL, SERVICE_TERRITORY, MAP_POLYGON, FSL_FILE
 from sfs_manager import SFSManager
 
 
@@ -51,15 +51,19 @@ SA_UPDATE = {
       "ServiceTerritoryId" : "0Hh4L000000TivYSAS"
    }]
 }
-
+# double MinLat  = 29.56388233493162;
+# double MaxLat  = 29.820414777342126;
+# double MinLong = -95.0920235039353;
+# double MaxLong = -95.9933880169435;
+coords = "-95.9933880169435,29.820414777342126,0\n-95.9933880169435,29.56388233493162,0\n-95.0920235039353,29.56388233493162,0\n-95.0920235039353,29.820414777342126,0\n-95.9933880169435,29.820414777342126,0\n"
 CREATE_POLY = {
-  "Name": "example4",
-  "FSL__Ma_La__c": 29.7456539367767,
-  "FSL__Ma_Lo__c": -95.00400669833253,
-  "FSL__Mi_La__c": 29.533192882060835,
-  "FSL__Mi_Lo__c": -95.33908970614503,
-  "FSL__KML__c": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> \n                            <kml xmlns=\"http://www.opengis.net/kml/2.2\">\n                                <Style id=\"example2Style\"> \n                                    <LineStyle> \n                                        <width>1</width> \n                                    </LineStyle> \n                                    <PolyStyle> \n                                        <color>80c0f09d</color> \n                                    </PolyStyle> \n                                </Style> \n                                <Placemark> \n                                    <name>example2</name> \n                                    <styleUrl>#example2Style</styleUrl> \n                                    <Polygon>\n                    <outerBoundaryIs>\n                                    <LinearRing>\n                                        <coordinates>-95.0081265713794,29.736114752522607,0\n-95.00400669833253,29.533192882060835,0\n-95.27591831942628,29.533192882060835,0\n-95.29789097567628,29.641866618837206,0\n-95.33908970614503,29.705106138609562,0\n-95.30887730380128,29.7456539367767,0\n-95.26218540927003,29.737307200175735,0\n-95.21549351473878,29.711070077572373,0\n-95.0081265713794,29.736114752522607,0\n</coordinates>\n                                    </LinearRing>\n                                 </outerBoundaryIs>\n                    \n                </Polygon>\n                                </Placemark> \n                            </kml>",
-  "FSL__Service_Territory__c": "0Hh4L000000TivYSAS"
+  "Name": "Houston_Main",
+  "FSL__Ma_La__c": 29.820414777342126,
+  "FSL__Ma_Lo__c": -95.9933880169435,
+  "FSL__Mi_La__c": 29.56388233493162,
+  "FSL__Mi_Lo__c": -95.0920235039353,
+  "FSL__KML__c": FSL_FILE % coords,
+  "FSL__Service_Territory__c": "0Hh4L000000TfLBSA0"
 }
 
 MANY_POLYS = {
@@ -98,8 +102,8 @@ sfs_manager = SFSManager()
 # r = sfs_manager.delete_one(SERVICE_TERRITORY_MEMBER, '0Hu4L000000TiyRSAS')
 # r = sfs_manager.create_one(SERVICE_TERRITORY_MEMBER, STM)
 # r = sfs_manager.update_many(SA_UPDATE)
-# r = sfs_manager.create_one(MAP_POLYGON, CREATE_POLY)
-r = sfs_manager.create_many(MANY_POLYS)
+r = sfs_manager.create_one(MAP_POLYGON, CREATE_POLY)
+# r = sfs_manager.create_many(MANY_POLYS)
 
 # params = {"ids": "0Hh4L000000TivfSAC,0Hh4L000000TivhSAC,0Hh4L000000TivkSAC,0Hh4L000000TivpSAC,0Hh4L000000TivjSAC,0Hh4L000000TiveSAC,0Hh4L000000TivoSAC"}
 # r = sfs_manager.delete_many(params)
