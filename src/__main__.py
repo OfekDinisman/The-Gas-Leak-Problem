@@ -31,3 +31,7 @@ stms = adopt.run()
 # Optimize...
 
 # Test...
+# double MinLat  = 29.56388233493162;
+# double MaxLat  = 29.820414777342126;
+# double MinLong = -95.0920235039353;
+# double MaxLong = -95.9933880169435;

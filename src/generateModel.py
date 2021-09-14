@@ -7,6 +7,8 @@ from cluster_manager import ClusterManager
 # from convex_hull_manager import ConvexHullManager
 from voronoi import VoronoiManager
 from plot_manager import PlotManager
+from const import MILLION
+
 
 NUM_OF_CLUSTERS = 4
 MAGIC = 0.9
@@ -36,13 +38,13 @@ class GenerateModel():
             return 1 - standard_weight
 
     def add_task_point(self):
-        self.df_tasks['point'] = self.df_tasks.apply(lambda row: Point(row['lng'] * 1000000, row['lat'] * 1000000), axis=1)
+        self.df_tasks['point'] = self.df_tasks.apply(lambda row: Point(row['lng'] * MILLION, row['lat'] * MILLION), axis=1)
 
     def run(self):
         standard_weight = self._calculate_standard_weight()
         self.df_tasks['weight'] = self.df_tasks.apply(
             lambda row: self.add_task_weights(row, standard_weight), axis=1)
-        X = np.array(self.df_tasks[['lng', 'lat']]) * 1000000
+        X = np.array(self.df_tasks[['lng', 'lat']]) * MILLION
         W = np.array(self.df_tasks['weight'])
         X.astype(int)
 
@@ -59,4 +61,4 @@ class GenerateModel():
         plot = PlotManager()
         plot.plotPlolygonsAndPoints(X, polys.values())
 
-        return polys
+        return polys.values()
