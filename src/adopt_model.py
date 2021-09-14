@@ -133,6 +133,6 @@ class AdoptModel():
         self.updateServiceAppointments()
 
         # create STMs
-        # stms = self.createServiceTerritoryMembers()
+        stms = self.createServiceTerritoryMembers()
 
         return stms
