@@ -2,6 +2,7 @@ from logging import raiseExceptions
 from shapely.geometry import Polygon, Point
 from scipy.optimize import linear_sum_assignment
 import pandas as pd, numpy as np, matplotlib.pyplot as plt
+import logging
 
 from const import SERVICE_TERRITORY, SERVICE_TERRITORY_MEMBER, MAP_POLYGON, FSL_FILE, MILLION
 from sfs_manager import SFSManager
@@ -87,6 +88,7 @@ class AdoptModel():
             if (i+1) % 25 == 0 or i == self.NUM_OF_POLYS - 1:
                 response = self.sfs_manager.create_many({"compositeRequest": composite})
                 self.territories += [res["body"]["id"] for res in response["compositeResponse"]]
+                logging.info("Created %d STs." % len(composite))
                 composite = []
  
     def createPolygons(self):
@@ -112,6 +114,7 @@ class AdoptModel():
             # create in batches of 25
             if (i+1) % 25 == 0 or i == self.NUM_OF_POLYS - 1:
                 self.sfs_manager.create_many({"compositeRequest": composite})
+                logging.info("Created %d Polygons." % len(composite))
                 composite = []
 
     def updateServiceAppointments(self):
@@ -128,6 +131,7 @@ class AdoptModel():
             # create in batches of 25
             if (i+1) % 25 == 0 or i == self.NUM_OF_TASKS - 1:
                 self.sfs_manager.update_many({"records": records})
+                logging.info("Updated %d SAs." % len(records))
                 records = []
 
     def createServiceTerritoryMembers(self):
@@ -151,22 +155,28 @@ class AdoptModel():
             if (i+1) % 25 == 0 or i == self.NUM_OF_POLYS - 1:
                 response = self.sfs_manager.create_many({"compositeRequest": composite})
                 stm += [res["body"]["id"] for res in response["compositeResponse"]]
+                logging.info("Created %d STMs." % len(composite))
                 composite = []
         return stm
 
 
     def run(self):
         # for every Polygon create a Service Territory
+        logging.info("Creating service territories...")
         self.createServiceTerritories()
 
         # create polygons
+        logging.info("Creating polygons...")
         self.createPolygons()
 
         # update SA to new STs
+        logging.info("Updating service appointments...")
         self.updateServiceAppointments()
 
         # create STMs
+        logging.info("Assigning resource to territory...")
         self.assign_resource_to_territory()
+        logging.info("Creating service territory members...")
         stms = self.createServiceTerritoryMembers()
 
         # return stms

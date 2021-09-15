@@ -75,3 +75,16 @@ def getResourceFromJson(json_data):
         resource["lng"]             = d["FSL__Internal_SLR_HomeAddress_Geolocation__Longitude__s"]
         resources.append(resource)
     return resources
+
+def getAssignedResource(json_data):
+    try:
+        file = open(json_data,)
+        data = json.load(file)
+    except:
+        data = json_data
+        assignments = []
+    for d in data:
+        assignment = {}
+        assignment[d["ServiceResourceId"]]       = d["ServiceAppointmentId"]
+        assignments.append(assignment)
+    return assignments

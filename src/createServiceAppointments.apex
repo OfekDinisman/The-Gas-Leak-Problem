@@ -2,20 +2,17 @@
 
 double latitude = 29.737882871554312;
 double longitude = -95.46285831417906;
-double radius = 0.6;
+double radius = 0.3;
 
 
 DateTime StartDate = DateTime.newInstance(2022, 1, 4, 7, 00, 00);
 DateTime EndDate = DateTime.newInstance(2022, 1, 4, 20, 00, 00);
-String Simulation_Dataset = '2';
+String Simulation_Dataset = '1';
 
-// LU 29.820414777342126, -95.9933880169435
-// RD 29.56388233493162, -95.0920235039353
-
-double MinLat  = 29.56388233493162;
-double MaxLat  = 29.820414777342126;
-double MinLong = -95.0920235039353;
-double MaxLong = -95.9933880169435;
+double MinLat  = 29.4359136;
+double MaxLat  = 30.06543314;
+double MinLong = -95.807349900;
+double MaxLong = -95.052039;
 System.debug('LatScale: ' + (MaxLat - MinLat));
 System.debug('LongScale: ' + (MinLong + (-1*MaxLong)));
 
