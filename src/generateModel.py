@@ -9,7 +9,6 @@ from plot_manager import PlotManager
 from const import MILLION
 
 
-NUM_OF_CLUSTERS = 4
 MAGIC = 0.9
 
 
@@ -27,7 +26,7 @@ class GenerateModel():
 
 
     def _calculate_standard_weight(self):
-        return self.compliance_rate * MAGIC
+        return (1.5 - self.compliance_rate) * MAGIC
 
     @staticmethod
     def add_task_weights(row, standard_weight):
@@ -48,7 +47,7 @@ class GenerateModel():
         X.astype(int)
 
         cm = ClusterManager(self.df_tasks, X)
-        df, cluster_centers = cm.kmeans(NUM_OF_CLUSTERS, W)
+        df, cluster_centers = cm.kmeans(self.number_of_resources, W)
         # df, cluster_centers = cm.kmeans_equal(NUM_OF_CLUSTERS, territory)
 
         # ch = ConvexHullManager(NUM_OF_CLUSTERS, df)

@@ -1,9 +1,12 @@
 import json
 from pykml import parser
 
-def getPolygonsFromJson(jsonfile):
-    file = open(jsonfile,)
-    data = json.load(file)
+def getPolygonsFromJson(json_data):
+    try:
+        file = open(json_data,)
+        data = json.load(file)
+    except:
+        data = json_data
     polygons = []
     for d in data:
         polygon = {}

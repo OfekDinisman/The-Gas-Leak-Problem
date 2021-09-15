@@ -14,7 +14,9 @@ class AdoptModel():
         self.resources = resources
         self.sfs_manager = SFSManager()
         self.NUM_OF_POLYS = len(self.polygons)
+        self.NUM_OF_TASKS = len(self.tasks)
         self.dataset = dataset
+        self.territories = []
 
     @staticmethod
     def _get_point_from_object(obj):
@@ -81,7 +83,11 @@ class AdoptModel():
                 }
             }
             composite.append(st)
-        return self.sfs_manager.create_many({"compositeRequest": composite})
+            # create in batches of 25
+            if (i+1) % 25 == 0 or i == self.NUM_OF_POLYS - 1:
+                response = self.sfs_manager.create_many({"compositeRequest": composite})
+                self.territories += [res["body"]["id"] for res in response["compositeResponse"]]
+                composite = []
  
     def createPolygons(self):
         composite = []
@@ -103,11 +109,14 @@ class AdoptModel():
                 }
             }
             composite.append(mp)
-        return self.sfs_manager.create_many({"compositeRequest": composite})
+            # create in batches of 25
+            if (i+1) % 25 == 0 or i == self.NUM_OF_POLYS - 1:
+                self.sfs_manager.create_many({"compositeRequest": composite})
+                composite = []
 
     def updateServiceAppointments(self):
         records = []
-        for task in self.tasks:
+        for i, task in enumerate(self.tasks):
             task_territory_id = self._get_task_territory_id(task)
             task_info = {
                 "attributes" : {"type" : "ServiceAppointment"},
@@ -115,10 +124,15 @@ class AdoptModel():
                 "ServiceTerritoryId" : task_territory_id
             }
             records.append(task_info)
-        return self.sfs_manager.update_many({"records": records})
+
+            # create in batches of 25
+            if (i+1) % 25 == 0 or i == self.NUM_OF_TASKS - 1:
+                self.sfs_manager.update_many({"records": records})
+                records = []
 
     def createServiceTerritoryMembers(self):
         composite = []
+        stm = []
         for i, resource in enumerate(self.resources):
             resource_territory_id = self._get_resource_territory_id(i)
             sr = {
@@ -133,14 +147,17 @@ class AdoptModel():
                 }
             }
             composite.append(sr)
-        return self.sfs_manager.create_many({"compositeRequest": composite})
+            # create in batches of 25
+            if (i+1) % 25 == 0 or i == self.NUM_OF_POLYS - 1:
+                response = self.sfs_manager.create_many({"compositeRequest": composite})
+                stm += [res["body"]["id"] for res in response["compositeResponse"]]
+                composite = []
+        return stm
 
 
     def run(self):
         # for every Polygon create a Service Territory
-        response = self.createServiceTerritories()
-        self.territories = [res["body"]["id"] for res in response["compositeResponse"]]
-        # self.territories = ['0Hh4L000000TiwSSAS', '0Hh4L000000TiwXSAS', '0Hh4L000000TiwcSAC', '0Hh4L000000TiwTSAS']
+        self.createServiceTerritories()
 
         # create polygons
         self.createPolygons()
@@ -152,15 +169,15 @@ class AdoptModel():
         self.assign_resource_to_territory()
         stms = self.createServiceTerritoryMembers()
 
-        return stms
+        # return stms
 
 
-        # df = pd.DataFrame.from_dict(self.resources)
-        # X = np.array(df[['lng', 'lat']]) * MILLION
-        # X.astype(int)
-        # for i in range(self.NUM_OF_POLYS):
-        #     xs, xy = self.polygons[self.resource_assignment[i]].exterior.xy
-        #     plt.plot(xs, xy)
-        #     x, y = X[i].T
-        #     plt.scatter(x, y)
-        # plt.show()
+        df = pd.DataFrame.from_dict(self.resources)
+        X = np.array(df[['lng', 'lat']]) * MILLION
+        X.astype(int)
+        for i in range(self.NUM_OF_POLYS):
+            xs, xy = self.polygons[self.resource_assignment[i]].exterior.xy
+            plt.plot(xs, xy)
+            x, y = X[i].T
+            plt.scatter(x, y)
+        plt.show()

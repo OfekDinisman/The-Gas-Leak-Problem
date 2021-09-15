@@ -20,10 +20,11 @@ System.debug('LatScale: ' + (MaxLat - MinLat));
 System.debug('LongScale: ' + (MinLong + (-1*MaxLong)));
 
 
-Integer numOfServices=60;
+Integer numOfServices=360;
 double ratioEmg = 0.1;
 
 Id territoryGasLeak1 = [SELECT id FROM ServiceTerritory where Name='GasLeak1'].Id;
+Id territoryGasLeak2 = [SELECT id FROM ServiceTerritory where Name='GasLeak2'].Id;
 Id workTypeNormal = [Select Id from WorkType where Name='Standard'].Id;
 Id workTypeEmergency = [Select Id from WorkType where Name='Emergency'].Id;
 
@@ -48,13 +49,13 @@ for (Integer i=0; i<numOfServices; i++){
 
 
 WorkOrder emergencyWO = new WorkOrder();
-emergencyWO.ServiceTerritoryId = territoryGasLeak1;
+emergencyWO.ServiceTerritoryId = territoryGasLeak2;
 emergencyWO.WorkTypeId = workTypeEmergency;
 insert emergencyWO;
 
 for(Integer i=0; i< (numOfServices * ratioEmg); i++){
     ServiceAppointment sa = new ServiceAppointment();
-    sa.ServiceTerritoryId = territoryGasLeak1;
+    sa.ServiceTerritoryId = territoryGasLeak2;
     sa.ParentRecordId = emergencyWO.Id;
     sa.Latitude = latitude + (Math.random() -0.5) * radius;
     sa.Longitude = longitude + (Math.random() -0.5) * radius;
