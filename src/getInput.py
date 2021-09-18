@@ -40,8 +40,8 @@ def getTasksFromJson(json_data):
         task["startTime"]           = d["EarliestStartTime"]
         task["workType"]            = d["WorkType"]["Name"]
         task["serviceTerritory"]    = d["ServiceTerritoryId"]
-        task["startTime"]           = d["SchedStartTime"]
-        task["endTime"]             = d["SchedEndTime"]
+        task["schedStartTime"]      = d["SchedStartTime"]
+        task["schedEndTime"]        = d["SchedEndTime"]
         task["serviceResource"]     = d["Assigned_Service_Resource__c"]
         tasks.append(task)
     return tasks
@@ -82,9 +82,7 @@ def getAssignedResource(json_data):
         data = json.load(file)
     except:
         data = json_data
-        assignments = []
+        assignments = {}
     for d in data:
-        assignment = {}
-        assignment[d["ServiceResourceId"]]       = d["ServiceAppointmentId"]
-        assignments.append(assignment)
+        assignments[d["ServiceAppointmentId"]] = d["ServiceResourceId"]
     return assignments

@@ -5,9 +5,9 @@ double longitude = -95.46285831417906;
 double radius = 0.3;
 
 
-DateTime StartDate = DateTime.newInstance(2022, 1, 4, 7, 00, 00);
-DateTime EndDate = DateTime.newInstance(2022, 1, 4, 20, 00, 00);
-String Simulation_Dataset = '1';
+DateTime StartDate = DateTime.newInstance(2022, 1, 4, 9, 00, 00);
+DateTime EndDate = DateTime.newInstance(2022, 1, 4, 18, 00, 00);
+String Simulation_Dataset = '2';
 
 double MinLat  = 29.4359136;
 double MaxLat  = 30.06543314;
@@ -57,7 +57,7 @@ for(Integer i=0; i< (numOfServices * ratioEmg); i++){
     sa.Latitude = latitude + (Math.random() -0.5) * radius;
     sa.Longitude = longitude + (Math.random() -0.5) * radius;
     // Emergency Time
-    sa.SchedStartTime = StartDate +  (Math.random() * (8.0/24)); // + ~8h 
+    sa.SchedStartTime = StartDate + 3/24 + (Math.random() * (8.0/24)); // + ~8h 
     sa.SchedEndTime = sa.SchedStartTime + (1.0/24) ; // 1h;
     System.debug('StartDate: ' + sa.SchedStartTime);
     System.debug('EndDate: ' + sa.SchedEndTime);

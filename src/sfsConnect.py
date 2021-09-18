@@ -29,7 +29,7 @@ def sf_api_call(action, parameters = {}, method = 'get', data = {}):
    if method in ['get', 'delete']:
       r = requests.request(method, instance_url+action, headers=headers, params=parameters, timeout=30)
    elif method in ['post', 'patch']:
-      r = requests.request(method, instance_url+action, headers=headers, json=data, params=parameters, timeout=10)
+      r = requests.request(method, instance_url+action, headers=headers, json=data, params=parameters, timeout=60)
    else:
       # other methods not implemented in this example
       raise ValueError('Method should be get or post or patch.')

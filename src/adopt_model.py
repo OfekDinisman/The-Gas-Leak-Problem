@@ -6,6 +6,7 @@ import logging
 
 from const import SERVICE_TERRITORY, SERVICE_TERRITORY_MEMBER, MAP_POLYGON, FSL_FILE, MILLION
 from sfs_manager import SFSManager
+from methods import get_point_for_poly_from_object
 
 
 class AdoptModel():
@@ -19,16 +20,13 @@ class AdoptModel():
         self.dataset = dataset
         self.territories = []
 
-    @staticmethod
-    def _get_point_from_object(obj):
-        return Point(obj['lng'] * MILLION, obj['lat'] * MILLION)
-
     def _get_task_territory_id(self, task):
-        point = self._get_point_from_object(task)
+        point = get_point_for_poly_from_object(task)
         poly_index = self._get_assigned_poly_idx(point)
         return self.territories[poly_index]
 
     def _get_assigned_poly_idx(self, point):
+        # type: (Point) -> int
         for i, poly in enumerate(self.polygons):
             if poly.contains(point):
                 return i
@@ -40,7 +38,7 @@ class AdoptModel():
     def create_cost_array(self):
         cost_array = []
         for resource in self.resources:
-            point = self._get_point_from_object(resource)
+            point = get_point_for_poly_from_object(resource)
             cost_array_row = []
             for poly in self.polygons:
                 cost_array_row.append(point.distance(poly))
@@ -79,7 +77,7 @@ class AdoptModel():
                 "referenceId": "ref" + str(i),
                 "body": {
                     "Name": "SET" + str(self.dataset) + "ST" + str(i),
-                    "OperatingHoursId": "0OH4L000000Tfp8WAC",
+                    "OperatingHoursId": "0OH4L000000Tfp8WAC", # Houston hours
                     "isActive": True
                 }
             }
@@ -178,8 +176,6 @@ class AdoptModel():
         self.assign_resource_to_territory()
         logging.info("Creating service territory members...")
         stms = self.createServiceTerritoryMembers()
-
-        # return stms
 
 
         df = pd.DataFrame.from_dict(self.resources)

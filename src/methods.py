@@ -1,12 +1,9 @@
+from shapely.geometry import Point
+from const import MILLION
 
 
-def assignPointsToPolygons(points, polygons):
-    result = {}
-    for poly in polygons:
-        poly_points = []
-        for point in points:
-            if poly.contains(point):
-                poly_points.append(point)
-        result[poly] = poly_points
-    return result
+def get_point_for_poly_from_object(obj):
+    return Point(obj['lng'] * MILLION, obj['lat'] * MILLION)
 
+def get_point_from_object(obj):
+    return Point(obj['lng'], obj['lat'])

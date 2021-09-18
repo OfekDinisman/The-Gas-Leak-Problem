@@ -8,13 +8,9 @@ from queries import QUERY_SA_STD, QUERY_SA_EMG, QUERY_STM_GAS_LEAK_1, QUERY_POLY
 from getInput import getTasksFromJson, getPolygonsFromJson, getResourceFromJson
 from generateModel import GenerateModel
 from adopt_model import AdoptModel
+from params import SIMULATION_DATASET, COMPLIANCE_RATE, DELAY_TIME, RESOURCE_SPEED
 
-
-SIMULATION_DATASET = 1
-COMPLIANCE_RATE = 0.9
-DELAY_TIME = 30
-
-CreateLog("Main.log")
+CreateLog("Model %s.log" % SIMULATION_DATASET)
 
 sfs_manager = SFSManager()
 tasks = sfs_manager.get_query(QUERY_SA_STD % SIMULATION_DATASET)['records']
@@ -28,14 +24,10 @@ logging.info("Recieved %d resources" % len(resources))
 
 # Generate Model...
 logging.info("Generating Model...")
-model = GenerateModel(tasks, resources, territory, COMPLIANCE_RATE, DELAY_TIME)
+model = GenerateModel(tasks, resources, territory, COMPLIANCE_RATE, DELAY_TIME, RESOURCE_SPEED)
 polygons = model.run()
 
 # Adopt Model...
 logging.info("Adopting Model...")
 adopt = AdoptModel(tasks, polygons, resources, SIMULATION_DATASET)
-stms = adopt.run()
-
-# Optimize...
-
-# Test...
+adopt.run()
