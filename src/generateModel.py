@@ -2,9 +2,7 @@ import pandas as pd, numpy as np
 from shapely.geometry import Polygon, Point
 import math
 
-from getInput import getPolygonsFromJson, getTasksFromJson
 from cluster_manager import ClusterManager
-# from convex_hull_manager import ConvexHullManager
 from voronoi import VoronoiManager
 from plot_manager import PlotManager
 from const import MILLION
@@ -58,10 +56,6 @@ class GenerateModel():
 
         cm = ClusterManager(self.df_tasks, X)
         df, cluster_centers = cm.kmeans(self.number_of_resources, W)
-        # df, cluster_centers = cm.kmeans_equal(NUM_OF_CLUSTERS, territory)
-
-        # ch = ConvexHullManager(NUM_OF_CLUSTERS, df)
-        # ch.convexPoints()
 
         vor = VoronoiManager(cluster_centers, self.territory)
         polys, points, = vor.getVor()

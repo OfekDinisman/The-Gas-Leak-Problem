@@ -8,7 +8,6 @@ import json
 import matplotlib.pyplot as plt
 import logging
 import dateutil.parser
-
 from logger import CreateLog
 
 def GetResourcesNames(ListAppointments):
@@ -93,7 +92,7 @@ class EmergencyOutput():
                sort_keys=True, indent=4)
 #start
 CreateLog("TestAlgo.log")
-scheduledAppointmentsPath='src\input\scheduledAppointments.json' #get input json
+scheduledAppointmentsPath='src\input\scheduledAppointments2.json' #get input json
 drivingSpeedKM=40 #driving speed in KMs
 arrivalTimeToEmergency=60 #max time to get to the emergnecy in minutes
 #*************

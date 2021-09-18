@@ -2,7 +2,6 @@ from datetime import datetime
 import pytz
 from dateutil import parser
 import logging
-from shapely.geometry import Point
 
 from methods import get_point_from_object
 

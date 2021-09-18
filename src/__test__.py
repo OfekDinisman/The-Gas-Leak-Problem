@@ -19,7 +19,7 @@ emergencies = getTasksFromJson(emergencies)
 logging.info("Recieved %d emergencies" % len(emergencies))
 resources = sfs_manager.get_query(QUERY_STM_GAS_LEAK_1)['records']
 resources = getResourceFromJson(resources)
-assigned_resources = sfs_manager.get_query(QUERY_ASSIGNED_RESOURCE)['records']
+assigned_resources = sfs_manager.get_query(QUERY_ASSIGNED_RESOURCE % SIMULATION_DATASET)['records']
 assigned_resources = getAssignedResource(assigned_resources)
 
 test = TestModel(scheduled_tasks, emergencies, resources, assigned_resources, COMPLIANCE_RATE, DELAY_TIME, RESOURCE_SPEED)

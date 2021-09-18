@@ -187,3 +187,5 @@ class AdoptModel():
             x, y = X[i].T
             plt.scatter(x, y)
         plt.show()
+
+        return stms

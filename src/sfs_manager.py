@@ -1,5 +1,5 @@
 from sfsConnect import sf_api_call
-from const import COMPOSITE, QUERY_URL
+from const import COMPOSITE, QUERY_URL, EXECUTE_ANONYMOUS
 
 class SFSManager:
     def __init__(self) -> None:
@@ -41,3 +41,10 @@ class SFSManager:
         # params = {"ids": "0Hu4L000000TfNFSA0,0Hu4L000000TgawSAC"}
         r = sf_api_call(COMPOSITE + "/sobjects", method='delete', parameters=params)
         return r
+
+    def execute_apexfile(self, apexfile):
+        with open(apexfile) as f:
+            body = f.read()
+        r = sf_api_call(EXECUTE_ANONYMOUS, method="get", parameters={'anonymousBody': body})
+        return r
+

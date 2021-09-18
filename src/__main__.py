@@ -8,6 +8,7 @@ from queries import QUERY_SA_STD, QUERY_SA_EMG, QUERY_STM_GAS_LEAK_1, QUERY_POLY
 from getInput import getTasksFromJson, getPolygonsFromJson, getResourceFromJson
 from generateModel import GenerateModel
 from adopt_model import AdoptModel
+from optimize import Optimize
 from params import SIMULATION_DATASET, COMPLIANCE_RATE, DELAY_TIME, RESOURCE_SPEED
 
 CreateLog("Model %s.log" % SIMULATION_DATASET)
@@ -30,4 +31,9 @@ polygons = model.run()
 # Adopt Model...
 logging.info("Adopting Model...")
 adopt = AdoptModel(tasks, polygons, resources, SIMULATION_DATASET)
-adopt.run()
+stms = adopt.run()
+
+# Optimize
+opt = Optimize(stms, SIMULATION_DATASET)
+opt.create_apexfile()
+opt.optimize()

@@ -20,4 +20,4 @@ QUERY_POLYGON = 'SELECT Id, Name, FSL__Ma_La__c, FSL__Ma_Lo__c, FSL__Mi_La__c, F
 QUERY_POLYGON_MAIN = "SELECT Id, Name, FSL__Ma_La__c, FSL__Ma_Lo__c, FSL__Mi_La__c, FSL__Mi_Lo__c, FSL__KML__c, FSL__Service_Territory__c FROM FSL__Polygon__c WHERE Name='Houston'"
 
 # AssignedResource
-QUERY_ASSIGNED_RESOURCE = "Select Id, ServiceResourceId, ServiceAppointmentId from AssignedResource"
+QUERY_ASSIGNED_RESOURCE = "Select Id, ServiceResourceId, ServiceAppointmentId from AssignedResource where ServiceAppointment.Simulation_Dataset__c ='%s'"
