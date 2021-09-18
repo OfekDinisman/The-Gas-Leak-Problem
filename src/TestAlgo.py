@@ -78,7 +78,7 @@ def GetSuccessRate(ListEmergencyOutput):
     presentage= (count / len(ListEmergencyOutput)) *100 
     return presentage
 
-#start
+
 
 class EmergencyOutput():
     def __init__(self, distance,isSucceed,resource,appointment,emergency):
@@ -91,7 +91,7 @@ class EmergencyOutput():
     def toJSON(self):
            return json.dumps(self, default=lambda o: o.__dict__, 
                sort_keys=True, indent=4)
-
+#start
 CreateLog("TestAlgo.log")
 scheduledAppointmentsPath='src\input\scheduledAppointments.json' #get input json
 drivingSpeedKM=40 #driving speed in KMs
