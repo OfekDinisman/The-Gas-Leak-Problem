@@ -1,8 +1,7 @@
-import numpy as np, matplotlib.pyplot as plt
-from scipy.spatial import Voronoi, voronoi_plot_2d
-from shapely.geometry import LineString, MultiLineString, MultiPolygon
-from shapely.ops import polygonize, cascaded_union
-import matplotlib.pyplot as plt
+# import numpy as np, matplotlib.pyplot as plt
+# from scipy.spatial import Voronoi, voronoi_plot_2d
+# from shapely.geometry import LineString, MultiLineString, MultiPolygon
+# from shapely.ops import polygonize, cascaded_union
 from geovoronoi import voronoi_regions_from_coords
 
 

@@ -175,7 +175,7 @@ class AdoptModel():
         logging.info("Assigning resource to territory...")
         self.assign_resource_to_territory()
         logging.info("Creating service territory members...")
-        stms = self.createServiceTerritoryMembers()
+        self.createServiceTerritoryMembers()
 
 
         df = pd.DataFrame.from_dict(self.resources)
@@ -188,4 +188,4 @@ class AdoptModel():
             plt.scatter(x, y)
         plt.show()
 
-        return stms
+        return self.territories

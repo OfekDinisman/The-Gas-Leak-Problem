@@ -31,9 +31,9 @@ polygons = model.run()
 # Adopt Model...
 logging.info("Adopting Model...")
 adopt = AdoptModel(tasks, polygons, resources, SIMULATION_DATASET)
-stms = adopt.run()
+st = adopt.run()
 
 # Optimize
-opt = Optimize(stms, SIMULATION_DATASET)
+opt = Optimize(st, SIMULATION_DATASET)
 opt.create_apexfile()
 opt.optimize()
