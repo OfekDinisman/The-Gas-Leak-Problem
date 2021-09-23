@@ -1,8 +1,8 @@
 from sfs_manager import SFSManager
 
 class Optimize:
-    def __init__(self, stms, dataset) -> None:
-        self.stms = stms
+    def __init__(self, sts, dataset) -> None:
+        self.sts = sts
         self.dataset = dataset
 
     def create_apexfile(self):
@@ -13,8 +13,8 @@ class Optimize:
                 "LIST<Id> lstServiceTerritories = new List<Id>();\n"
             ]
             f.writelines(firstLines)
-            for stm in self.stms:
-                f.write("lstServiceTerritories.add('%s');\n" % stm)
+            for st in self.sts:
+                f.write("lstServiceTerritories.add('%s');\n" % st)
             endlines = [
                 "FSL.OAASRequest oaasRequest = new FSL.OAASRequest();\n"
                 "oaasRequest.allTasksMode = true;\n"
