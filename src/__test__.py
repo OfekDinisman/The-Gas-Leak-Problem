@@ -23,5 +23,5 @@ assigned_resources = sfs_manager.get_query(QUERY_ASSIGNED_RESOURCE % SIMULATION_
 assigned_resources = getAssignedResource(assigned_resources)
 
 test = TestModel(scheduled_tasks, emergencies, resources, assigned_resources, COMPLIANCE_RATE, DELAY_TIME, RESOURCE_SPEED)
-result, total_success_rate = test.run()
-logging.info("The overall success rate is %d%%" % total_success_rate)
+result, total_success_rate, avg_time = test.run()
+logging.info("The overall success rate is %d%%, with an average time of arrival of %.2f minutes" % (total_success_rate, avg_time))

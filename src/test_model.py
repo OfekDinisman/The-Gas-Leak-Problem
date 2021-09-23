@@ -80,6 +80,7 @@ class TestModel:
     def run(self):
         result = []
         success_count = 0
+        total_time = 0
         emergency_tasks = self.getTasksBeforeEmg()
         for emergency in self.emergencies:
             task, distance = self.getNearestTask(emergency, emergency_tasks[emergency["_id"]])
@@ -90,6 +91,7 @@ class TestModel:
                 task_id = task["_id"]  
                 resource_id = self.getTasksResourceId(task["_id"])
             time_to_emg = (distance / self.RESOURCE_SPEED) * 60  # minutes
+            total_time += time_to_emg
             successful_emg = time_to_emg <= self.DELAY_TIME
             if successful_emg: success_count += 1
 
@@ -104,7 +106,8 @@ class TestModel:
             logging.info(emergency_result)
             result.append(emergency_result)
 
+        average_time = total_time / len(self.emergencies)
         success_rate = success_count / len(self.emergencies)
-        return result, round(success_rate * 100)
+        return result, round(success_rate * 100), average_time
 
 

@@ -22,6 +22,8 @@ class PlotManager():
     
     def plotPolygonsAndPoints(self, points, polygons):
         plt.figure()
+        plt.xlabel('Longitude')
+        plt.ylabel('Latitude')
         x, y = points.T
         plt.scatter(x, y)
         for poly in polygons:
